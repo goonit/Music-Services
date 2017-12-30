@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import axios from 'axios';
 import querystring from 'query-string';
+import * as actions from '../../actions';
 
 class Spotify extends Component {
   state = {
@@ -20,19 +21,12 @@ class Spotify extends Component {
     return text;
   };
 
-  handleClick = () => {
-    axios
-      .get(this.state.spotifyAuthUri, {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers':
-            'Origin, X-Requested-With, Content-Type, Accept'
-        }
-      })
-      .then(response => console.log(response));
+  dispatchRequestLogin = dispatch => {
+    this.props.requestLogin();
   };
 
   componentDidMount() {
+    // todo: move this into an action creator.
     const clientId = localStorage.getItem('spotifyClientId');
     // const clientSecret = localStorage.getItem('spotifyClientSecret');
     const redirectUri = localStorage.getItem('spotifyRedirectUri');
@@ -65,12 +59,10 @@ class Spotify extends Component {
         <a
           href={this.state.spotifyAuthUri}
           style={{ textDecorationLine: 'none' }}
+          onClick={this.dispatchRequestLogin}
         >
           <Button raised>Spotify Login</Button>
         </a>
-        {/* <Button raised component={Redirect} to={this.state.spotifyAuthUri}>
-          Login with Spotify
-        </Button> */}
       </React.Fragment>
     );
   }

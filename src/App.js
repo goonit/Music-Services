@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -40,7 +40,8 @@ class App extends Component {
       quote,
       isAuthenticated,
       errorMessage,
-      isSecretQuote
+      isSecretQuote,
+      spotifyWebApi
     } = this.props;
 
     return (
@@ -64,16 +65,24 @@ class App extends Component {
   }
 }
 
+App.PropTypes = {
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string
+};
+
 function mapStateToProps(state) {
-  const { quotes, auth } = state;
-  const { quote, authenticated } = quotes;
+  const { user, auth } = state;
+  const { authenticated } = user;
   const { isAuthenticated, errorMessage } = auth;
+  const { spotifyWebApi } = state;
 
   return {
-    quote,
-    isSecretQuote: authenticated,
+    user,
     isAuthenticated,
-    errorMessage
+    errorMessage,
+    spotifyWebApi
   };
 }
 
