@@ -12,11 +12,11 @@ import App from './App';
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(rootReducer)}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+	<Provider store={createStoreWithMiddleware(rootReducer)}>
+		<Router>
+			<App />
+		</Router>
+	</Provider>,
+	document.getElementById('root')
 );
 registerServiceWorker();
