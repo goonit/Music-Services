@@ -49,11 +49,11 @@ class App extends Component {
 					</Toolbar>
 				</AppBar>
 				<div className="App-intro">
-					<Route exact path="/" component={SpotifyIndex} />
-					<Route exact path="/recents" component={Recents} />
-					<Route path="/callback" component={Callback} />
-					<Route path="/favorites" component={Favorites} />
-					<Route path="/playlists" component={Playlists} />
+					<Route exact path="/spotify" component={SpotifyIndex} />
+					<Route exact path="/spotify/recents" component={Recents} />
+					<Route path="/spotify/callback" component={Callback} />
+					<Route path="/spotify/favorites" component={Favorites} />
+					<Route path="/spotify/playlists" component={Playlists} />
 				</div>
 				<BottomNav />
 			</div>

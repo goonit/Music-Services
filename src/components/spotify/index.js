@@ -51,7 +51,8 @@ class SpotifyIndex extends Component {
 					client_id: clientId,
 					scope,
 					redirect_uri: redirectUri,
-					state: this.generateRandomString(16)
+					state: this.generateRandomString(16),
+					show_dialog: true
 				})
 		});
 

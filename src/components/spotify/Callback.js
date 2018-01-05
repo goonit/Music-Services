@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import querystring from 'query-string';
 import * as SpotifyWebApi from 'spotify-web-api-js';
 import * as actions from '../../actions';
 
 class Callback extends Component {
-	componentDidMount() {
+	componentWillMount() {
 		const { access_token } = querystring.parse(window.location.hash);
 
-		// debugger;
+		debugger;
 
 		if (!access_token) {
 			const { error } = querystring.parse(window.location.search);
@@ -26,12 +26,17 @@ class Callback extends Component {
 		// webApi.setAccessToken(access_token);
 		debugger;
 		// this.props.postAuthRedirect();
-		window.location.href = window.location.origin;
+		// window.location.href = window.location.origin;
 		// this.props.fetchUser(this.props.spotifyWebApi);
 	}
 
 	render() {
-		return <h1>Callback Page!</h1>;
+		return (
+			<React.Fragment>
+				<h1>Callback Page!</h1>
+				<Redirect to="/spotify/recents" />
+			</React.Fragment>
+		);
 	}
 }
 

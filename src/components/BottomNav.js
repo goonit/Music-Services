@@ -22,44 +22,46 @@ const bottomNavStyle = {
 
 class BottomNav extends Component {
 	state = {
-		selectedIndex: 0
+		value: 'home'
 	};
 
 	select = (event, value) => {
-		this.setState({ selectedIndex: value });
+		this.setState({ value });
 	};
 
 	render() {
+		const { value } = this.state;
 		return (
 			<React.Fragment>
 				<Paper elevation={3} style={bottomNavStyle}>
-					<BottomNavigation
-						value={this.state.selectedIndex}
-						onChange={this.select}
-					>
+					<BottomNavigation value={value} onChange={this.select}>
 						<BottomNavigationButton
 							label="Home"
 							icon={<HomeIcon />}
 							component={Link}
-							to="/"
+							value="home"
+							to="/spotify"
 						/>
 						<BottomNavigationButton
 							label="Recents"
 							icon={<RecentsIcon />}
 							component={Link}
-							to="/recents"
+							value="recents"
+							to="/spotify/recents"
 						/>
 						<BottomNavigationButton
 							label="Favorites"
 							icon={<FavoriteIcon />}
 							component={Link}
-							to="/favorites"
+							value="favorites"
+							to="/spotify/favorites"
 						/>
 						<BottomNavigationButton
 							label="Playists"
 							icon={<Icon>playlist_play</Icon>}
 							component={Link}
-							to="/playlists"
+							value="playlists"
+							to="/spotify/playlists"
 						/>
 					</BottomNavigation>
 				</Paper>

@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import SpotifyWebApi from 'spotify-web-api-js';
+import * as actions from '../../actions';
 
 class Recents extends Component {
-	state = {};
+	componentDidMount() {
+		if (this.props.spotifyWebApi) {
+			const { spotifyWebApi } = this.props;
+			this.props.fetchUser(spotifyWebApi);
+		}
+	}
+
 	render() {
+		const { user, isAuthenticated } = this.props;
+		console.log(`user: ${user}`);
+		console.log(`isAuthenticated: ${isAuthenticated}`);
+
 		return (
 			<React.Fragment>
 				<h1>Recents Page!</h1>
@@ -12,12 +25,14 @@ class Recents extends Component {
 	}
 }
 
-// function mapStateToProps(state) {
-// 	return {
-// 		state
-// 	};
-// }
+function mapStateToProps(state) {
+	const { isAuthenticated, user, spotifyWebApi } = state.authentication;
+	debugger;
+	return {
+		isAuthenticated,
+		user,
+		spotifyWebApi
+	};
+}
 
-export default Recents;
-
-// export default connect(mapStateToProps)(Recents);
+export default withRouter(connect(mapStateToProps, actions)(Recents));
