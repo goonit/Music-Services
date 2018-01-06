@@ -9,7 +9,7 @@ class Callback extends Component {
 	componentWillMount() {
 		const { access_token } = querystring.parse(window.location.hash);
 
-		debugger;
+		// debugger;
 
 		if (!access_token) {
 			const { error } = querystring.parse(window.location.search);
@@ -24,7 +24,7 @@ class Callback extends Component {
 		this.props.setApiAndKey();
 		// var webApi = new SpotifyWebApi();
 		// webApi.setAccessToken(access_token);
-		debugger;
+		// debugger;
 		// this.props.postAuthRedirect();
 		// window.location.href = window.location.origin;
 		// this.props.fetchUser(this.props.spotifyWebApi);

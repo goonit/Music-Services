@@ -68,9 +68,9 @@ export function loginError(message) {
 }
 
 export function fetchUser(spotifyWebApi) {
-	debugger;
+	// debugger;
 	return function(dispatch) {
-		debugger;
+		// debugger;
 		spotifyWebApi.getMe().then(response => {
 			dispatch({ type: FETCH_USER, payload: response });
 			console.log(response);

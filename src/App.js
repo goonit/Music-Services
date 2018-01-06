@@ -39,6 +39,13 @@ class App extends Component {
 	render() {
 		const { isAuthenticated, errorMessage, spotifyWebApi } = this.props;
 
+		// pass in current route as value prop to bottom navigation function.
+		// this allows for navigating directly to a url (bookmarks) and the
+		// correct navbuttonItem will be selected.
+		const { pathname } = this.props.location;
+		let currentRoute = pathname.split('/')[2];
+		if (currentRoute == 'spotify') currentRoute = 'home';
+
 		return (
 			<div className="App">
 				<AppBar position="static">
@@ -55,7 +62,7 @@ class App extends Component {
 					<Route path="/spotify/favorites" component={Favorites} />
 					<Route path="/spotify/playlists" component={Playlists} />
 				</div>
-				<BottomNav />
+				<BottomNav value={currentRoute} />
 			</div>
 		);
 	}
@@ -71,8 +78,6 @@ function mapStateToProps(state) {
 	const { user, auth, spotifyWebApi } = state.authentication;
 	// const { authenticated } = user;
 	// const { isAuthenticated, errorMessage } = auth;
-
-	console.log(`state: ${state}`);
 
 	return {
 		user,

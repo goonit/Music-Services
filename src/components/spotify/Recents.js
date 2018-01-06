@@ -27,7 +27,7 @@ class Recents extends Component {
 
 function mapStateToProps(state) {
 	const { isAuthenticated, user, spotifyWebApi } = state.authentication;
-	debugger;
+	// debugger;
 	return {
 		isAuthenticated,
 		user,

@@ -31,7 +31,7 @@ export default function(state = {}, action) {
 
 		case LOGIN_SUCCESS:
 			console.log('login success action');
-			debugger;
+			// debugger;
 			return { ...state, isAuthenticated: true };
 
 		case LOGOUT_USER:
@@ -41,7 +41,7 @@ export default function(state = {}, action) {
 			return { ...state, user: action.payload };
 
 		case SET_API_KEY:
-			debugger;
+			// debugger;
 			return { ...state, spotifyWebApi: action.payload };
 
 		default:

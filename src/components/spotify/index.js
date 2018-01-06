@@ -56,7 +56,7 @@ class SpotifyIndex extends Component {
 				})
 		});
 
-		debugger;
+		// debugger;
 		if (this.props.isAuthenticated) {
 			let me = this.props.spotifyWebApi.getMe();
 			console.log(me);
@@ -94,7 +94,7 @@ class SpotifyIndex extends Component {
 
 function mapStateToProps(state) {
 	const { user, isAuthenticated, spotifyWebApi } = state.authentication;
-	debugger;
+	// debugger;
 
 	return {
 		user,

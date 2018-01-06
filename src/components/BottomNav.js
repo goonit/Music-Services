@@ -30,11 +30,13 @@ class BottomNav extends Component {
 	};
 
 	render() {
+		const propsVal = this.props.value;
 		const { value } = this.state;
+
 		return (
 			<React.Fragment>
 				<Paper elevation={3} style={bottomNavStyle}>
-					<BottomNavigation value={value} onChange={this.select}>
+					<BottomNavigation value={propsVal || value} onChange={this.select}>
 						<BottomNavigationButton
 							label="Home"
 							icon={<HomeIcon />}
