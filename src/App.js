@@ -12,6 +12,7 @@ import Favorites from './components/spotify/Favorites';
 import Playlists from './components/spotify/Playlists';
 import Callback from './components/spotify/Callback';
 import BottomNav from './components/BottomNav';
+import PrivateRoute from './components/PrivateRoute';
 
 class App extends Component {
 	constructor(props) {
@@ -44,7 +45,7 @@ class App extends Component {
 		// correct navbuttonItem will be selected.
 		const { pathname } = this.props.location;
 		let currentRoute = pathname.split('/')[2];
-		if (currentRoute == 'spotify') currentRoute = 'home';
+		if (pathname == '/spotify') currentRoute = 'home';
 
 		return (
 			<div className="App">
@@ -57,10 +58,27 @@ class App extends Component {
 				</AppBar>
 				<div className="App-intro">
 					<Route exact path="/spotify" component={SpotifyIndex} />
-					<Route exact path="/spotify/recents" component={Recents} />
-					<Route path="/spotify/callback" component={Callback} />
-					<Route path="/spotify/favorites" component={Favorites} />
-					<Route path="/spotify/playlists" component={Playlists} />
+					<PrivateRoute
+						exact
+						path="/spotify/recents"
+						component={Recents}
+						isAuthenticated
+					/>
+					<PrivateRoute
+						path="/spotify/callback"
+						component={Callback}
+						isAuthenticated
+					/>
+					<PrivateRoute
+						path="/spotify/favorites"
+						component={Favorites}
+						isAuthenticated
+					/>
+					<PrivateRoute
+						path="/spotify/playlists"
+						component={Playlists}
+						isAuthenticated
+					/>
 				</div>
 				<BottomNav value={currentRoute} />
 			</div>

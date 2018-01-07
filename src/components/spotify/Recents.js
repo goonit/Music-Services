@@ -9,6 +9,15 @@ class Recents extends Component {
 		if (this.props.spotifyWebApi) {
 			const { spotifyWebApi } = this.props;
 			this.props.fetchUser(spotifyWebApi);
+
+			spotifyWebApi.getMyRecentlyPlayedTracks().then(response => {
+				// debugger;
+				console.log(JSON.stringify(response));
+			});
+
+			// if (this.props.user) {
+
+			// }
 		}
 	}
 
