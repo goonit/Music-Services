@@ -32,11 +32,20 @@ class Playlists extends Component {
 					{playlists.map(playlist => {
 						let showDivider =
 							playlists.indexOf(playlist) !== playlists.length - 1;
-						return (
-							<ListItem key={playlist.id} divider={showDivider}>
-								<ListItemText primary={playlist.name} />
-							</ListItem>
-						);
+
+						if (showDivider) {
+							return (
+								<ListItem key={playlist.id} divider>
+									<ListItemText primary={playlist.name} />
+								</ListItem>
+							);
+						} else {
+							return (
+								<ListItem key={playlist.id}>
+									<ListItemText primary={playlist.name} />
+								</ListItem>
+							);
+						}
 					})}
 				</List>
 			</React.Fragment>
