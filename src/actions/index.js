@@ -5,10 +5,11 @@ import {
 	LOGIN_FAILURE,
 	FETCH_USER,
 	LOGOUT_USER,
-	SET_API_KEY
+	SPOTIFY_SET_API,
+	GET_PLAYLIST_TRACKS
 } from './types';
+import moment from 'moment';
 import * as SpotifyWebApi from 'spotify-web-api-js';
-import {} from 'react-router-dom';
 
 export function authenticate(isLoggedIn) {
 	return {
@@ -28,32 +29,18 @@ export function requestLogin() {
 	};
 }
 
-// export function postAuthRedirect() {
-// 	return function(dispatch) {
-// 		dispatch({ type: POST_AUTH_REDIRECT, payload: })
-
-// 	}
-// }
-
-export function setApiAndKey() {
+export function getPlaylistTracks(spotifyWebApi, userId, playlistId) {
 	return function(dispatch) {
-		let webApi = new SpotifyWebApi();
-		webApi.setAccessToken(localStorage.getItem('spotifyAccessToken'));
-		dispatch({ type: SET_API_KEY, payload: webApi });
+		spotifyWebApi.getPlaylistTracks(userId, playlistId).then(response => {
+			dispatch({ type: GET_PLAYLIST_TRACKS, payload: response });
+		});
 	};
 }
 
-export function receiveLogin(authToken) {
+export function receiveLogin(authToken, authExpiration) {
 	return function(dispatch) {
-		dispatch({ type: LOGIN_SUCCESS });
-		localStorage.setItem('spotifyAccessToken', authToken);
+		dispatch({ type: LOGIN_SUCCESS, payload: { authToken, authExpiration } });
 	};
-	// return {
-	//   type: LOGIN_SUCCESS,
-	//   isFetching: true,
-	//   isAuthenticated: true,
-	//   id_token: user.id_token
-	// };
 }
 
 export function loginError(message) {
@@ -67,19 +54,26 @@ export function loginError(message) {
 	};
 }
 
-export function fetchUser(spotifyWebApi) {
-	// debugger;
+export function setSpotifyApi(accessToken) {
 	return function(dispatch) {
-		// debugger;
+		let webApi = new SpotifyWebApi();
+		webApi.setAccessToken(accessToken);
+		dispatch({ type: SPOTIFY_SET_API, payload: webApi });
+	};
+}
+
+export function fetchUser(spotifyWebApi) {
+	return function(dispatch) {
 		spotifyWebApi.getMe().then(response => {
 			dispatch({ type: FETCH_USER, payload: response });
-			console.log(response);
+			console.log(`user: ${JSON.stringify(response)}`);
 		});
 	};
 }
 
 export function userLogout() {
-	localStorage.removeItem('spotifyAccessToken');
-
-	return { type: LOGOUT_USER };
+	return function(dispatch) {
+		localStorage.removeItem('spotifyAccessToken');
+		dispatch({ type: LOGOUT_USER });
+	};
 }

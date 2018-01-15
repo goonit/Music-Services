@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from './AuthReducer';
-// import { routerReducer } from 'react-router-redux';
+import spotifyApiReducer from './SpotifyApiReducer';
 
 const rootReducer = combineReducers({
-  authentication: authReducer
-  // routing: routerReducer
+	spotifyApi: spotifyApiReducer,
+	authentication: authReducer
 });
 
 export default rootReducer;

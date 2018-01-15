@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SpotifyWebApi from 'spotify-web-api-js';
 import * as actions from '../../actions';
 
 class Recents extends Component {
@@ -11,19 +10,14 @@ class Recents extends Component {
 			this.props.fetchUser(spotifyWebApi);
 
 			spotifyWebApi.getMyRecentlyPlayedTracks().then(response => {
-				// debugger;
 				console.log(JSON.stringify(response));
 			});
-
-			// if (this.props.user) {
-
-			// }
 		}
 	}
 
 	render() {
 		const { user, isAuthenticated } = this.props;
-		console.log(`user: ${user}`);
+		console.log(`user: ${JSON.stringify(user)}`);
 		console.log(`isAuthenticated: ${isAuthenticated}`);
 
 		return (
@@ -36,7 +30,6 @@ class Recents extends Component {
 
 function mapStateToProps(state) {
 	const { isAuthenticated, user, spotifyWebApi } = state.authentication;
-	// debugger;
 	return {
 		isAuthenticated,
 		user,

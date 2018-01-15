@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import List, { ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 
 const styles = theme => ({
 	root: {
@@ -11,9 +10,6 @@ const styles = theme => ({
 });
 
 const PlayDashList = props => {
-	// state = {};
-	// render() {
-	debugger;
 	const { playlistItems } = props;
 
 	return (

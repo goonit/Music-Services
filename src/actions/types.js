@@ -4,4 +4,5 @@ export const LOGIN_SUCCESS = 'login_success';
 export const LOGIN_FAILURE = 'login_failure';
 export const FETCH_USER = 'fetch_user';
 export const LOGOUT_USER = 'logout_user';
-export const SET_API_KEY = 'set_api_key';
+export const SPOTIFY_SET_API = 'set_spotify_api';
+export const GET_PLAYLIST_TRACKS = 'get_playlist_tracks';

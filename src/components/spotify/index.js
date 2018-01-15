@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import axios from 'axios';
 import querystring from 'query-string';
 import * as actions from '../../actions';
-import SpotifyWebApi from 'spotify-web-api-js';
 
 class SpotifyIndex extends Component {
 	state = {
@@ -32,16 +30,10 @@ class SpotifyIndex extends Component {
 	componentDidMount() {
 		// todo: move this into an action creator.
 		const clientId = localStorage.getItem('spotifyClientId');
-		// const clientSecret = localStorage.getItem('spotifyClientSecret');
 		const redirectUri = localStorage.getItem('spotifyRedirectUri');
 		const scope = localStorage.getItem('spotifyAuthScopes');
 
 		let baseUri = 'https://accounts.spotify.com/authorize?';
-		// let queryStringParams = `client_id=${clientId}
-		// &response_type=code&
-		// scope=${encodeURI(scope)}
-		// &redirect_uri=${redirectUri}
-		// &state=${this.generateRandomString(16)}`;
 
 		this.setState({
 			spotifyAuthUri:
@@ -55,12 +47,6 @@ class SpotifyIndex extends Component {
 					show_dialog: true
 				})
 		});
-
-		// debugger;
-		if (this.props.isAuthenticated) {
-			let me = this.props.spotifyWebApi.getMe();
-			console.log(me);
-		}
 	}
 
 	render() {
@@ -94,7 +80,6 @@ class SpotifyIndex extends Component {
 
 function mapStateToProps(state) {
 	const { user, isAuthenticated, spotifyWebApi } = state.authentication;
-	// debugger;
 
 	return {
 		user,

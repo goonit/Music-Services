@@ -8,11 +8,29 @@ import rootReducer from './reducers';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import App from './App';
+import { loadState, saveState } from './localStorage';
+import throttle from 'lodash/throttle';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const persistedState = loadState();
+const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+
+// throttle makes sure that the method doesn't get called any more than x ms provided
+store.subscribe(
+	throttle(() => {
+		// debugger;
+		saveState({
+			authentication: {
+				spotifyAccessToken: store.getState().authentication.spotifyAccessToken,
+				spotifyTokenExpiration: store.getState().authentication
+					.spotifyTokenExpiration
+			}
+		});
+	}),
+	10000
+);
 
 ReactDOM.render(
-	<Provider store={createStoreWithMiddleware(rootReducer)}>
+	<Provider store={store}>
 		<Router>
 			<App />
 		</Router>

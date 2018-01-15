@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import querystring from 'query-string';
-import * as SpotifyWebApi from 'spotify-web-api-js';
-import * as actions from '../../actions';
+import { loginError, receiveLogin, setSpotifyApi } from '../../actions';
+import * as moment from 'moment';
 
 class Callback extends Component {
 	componentWillMount() {
-		const { access_token } = querystring.parse(window.location.hash);
-
-		// debugger;
+		const { access_token, expires_in } = querystring.parse(
+			window.location.hash
+		);
 
 		if (!access_token) {
 			const { error } = querystring.parse(window.location.search);
@@ -17,17 +17,11 @@ class Callback extends Component {
 			return this.props.loginError(error);
 		}
 		// todo: dispatch an action here passing the token to set in local storage.
-		this.props.receiveLogin(access_token);
-		// localStorage.setItem('spotifyAccessToken', access_token);
+		const authExpiration = moment().add(expires_in, 's');
+		this.props.receiveLogin(access_token, authExpiration);
 
 		// should this be moved to an action too?
-		this.props.setApiAndKey();
-		// var webApi = new SpotifyWebApi();
-		// webApi.setAccessToken(access_token);
-		// debugger;
-		// this.props.postAuthRedirect();
-		// window.location.href = window.location.origin;
-		// this.props.fetchUser(this.props.spotifyWebApi);
+		this.props.setSpotifyApi(access_token);
 	}
 
 	render() {
@@ -40,10 +34,6 @@ class Callback extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	const { spotifyWebApi, user, isAuthenticated } = state.authentication;
-
-	return { spotifyWebApi, user, isAuthenticated };
-}
-
-export default withRouter(connect(mapStateToProps, actions)(Callback));
+export default withRouter(
+	connect(null, { loginError, receiveLogin, setSpotifyApi })(Callback)
+);
